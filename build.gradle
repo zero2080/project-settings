@@ -1,0 +1,58 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.6'
+    id 'org.asciidoctor.jvm.convert' version '3.3.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.base'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
+configurations {
+    asciidoctorExtensions
+}
+
+asciidoctor {
+    dependsOn test
+    configurations 'asciidoctorExtensions'
+    baseDirFollowsSourceDir()
+    attributes 'snippets': snippetsDir
+    inputs.dir snippetsDir
+    outputDir 'src/main/resources/static/docs'
+}
+
+repositories {
+    mavenCentral()
+}
+
+bootJar {
+    dependsOn asciidoctor
+}
+
+test {
+    outputs.dir snippetsDir
+}
+
+clean {
+    delete file('src/main/generated') // 인텔리제이 Annotation processor 생성물 생성위치
+    delete file("${asciidoctor.outputDir}")
+}
+
+dependencies {
+    asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+
+}

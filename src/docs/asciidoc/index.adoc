@@ -1,0 +1,18 @@
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:leveloffset: 0
+:division: begin
+
+
+= Rest API Guide
+
+[[Resources]]
+== REST API Resources
+
+include::begin/begin.adoc[]
+
+---
+

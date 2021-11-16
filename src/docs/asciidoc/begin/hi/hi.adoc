@@ -1,0 +1,8 @@
+:api-name: 하이~
+:api-id: /begin/hello-docs/hi
+
+== {api-name}
+
+=== Positive Case
+
+operation::{api-id}/success/[snippets='http-request,http-response,response-fields']
