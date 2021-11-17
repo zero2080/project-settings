@@ -19,7 +19,13 @@ import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.http.HttpDocumentation;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
+import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.mustache.Mustache;
+import org.springframework.restdocs.operation.preprocess.OperationRequestPreprocessor;
+import org.springframework.restdocs.operation.preprocess.OperationResponsePreprocessor;
+import org.springframework.restdocs.operation.preprocess.Preprocessors;
+import org.springframework.restdocs.snippet.Attributes;
+import org.springframework.restdocs.snippet.Snippet;
 import org.springframework.restdocs.templates.StandardTemplateResourceResolver;
 import org.springframework.restdocs.templates.TemplateEngine;
 import org.springframework.restdocs.templates.TemplateFormat;
@@ -60,5 +66,19 @@ public class BaseProjectApplicationTest {
     return new MustacheTemplateEngine(
         new StandardTemplateResourceResolver(TemplateFormats.asciidoctor()),
         Mustache.compiler().escapeHTML(false), Map.of("tableCellContent", new AsciidoctorTableCellContentLambda()));
+  }
+
+  // 커스텀 템플릿
+  public static RestDocumentationResultHandler document(String identifier,
+      Snippet... snippets) {
+    return MockMvcRestDocumentation.document(identifier,
+        Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
+        Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
+        snippets);
+  }
+
+  //path parameter 테이블 format컬럼 추가
+  protected static Attributes.Attribute format(String value){
+    return Attributes.key("format").value(value);
   }
 }

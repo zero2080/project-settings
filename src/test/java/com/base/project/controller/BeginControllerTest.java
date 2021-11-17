@@ -2,7 +2,6 @@ package com.base.project.controller;
 
 import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.STRING;
 import static org.hamcrest.core.Is.is;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -51,7 +50,7 @@ public class BeginControllerTest extends BaseProjectApplicationTest {
     // Documentation
     result.andDo(document("begin/hello-docs/hello/success",
         pathParameters(
-            parameterWithName("id").description("예제 값")
+            parameterWithName("id").description("예제 값").attributes(format("STRING"))
         ),
 //      리퀘스트 바디에 데이터를 넘길때
 //        requestFields(

@@ -2,6 +2,7 @@
 :icons: font
 :source-highlighter: highlightjs
 :toc: left
+:sectnums:
 :toclevels: 4
 :leveloffset: 0
 :division: begin
