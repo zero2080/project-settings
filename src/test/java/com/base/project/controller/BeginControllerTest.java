@@ -13,6 +13,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 import com.base.BaseProjectApplicationTest;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
@@ -73,5 +75,13 @@ public class BeginControllerTest extends BaseProjectApplicationTest {
 
     // Documentation
     result.andDo(document("begin/hello-docs/hello/error"));
+  }
+
+  @Test
+  public void joinCustormer() throws Exception {
+    Map<String,Object> requestBody = Map.of("name","오범수","email","zero2080@naver.com","password","zero2081");
+    ResultActions result = mockMvc.perform(
+        post("/join-account",new ObjectMapper().writeValueAsBytes(requestBody))
+    );
   }
 }
