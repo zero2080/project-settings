@@ -16,6 +16,7 @@ public class AdminUserDetailsService implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     return repository.findByUsername(username)
+        .map(AdminUserDetail::new)
         .orElseThrow(() -> new UsernameNotFoundException("Admin account cannot Found"));
   }
 }

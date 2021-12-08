@@ -6,18 +6,17 @@ import java.io.IOException;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@RequiredArgsConstructor
 public class AdminLoginFilter extends UsernamePasswordAuthenticationFilter {
-  private final ObjectMapper objectMapper;
 
-  public AdminLoginFilter(ObjectMapper objectMapper) {
-    this.objectMapper = objectMapper;
-  }
+  private final ObjectMapper objectMapper;
 
   @Override
   public Authentication attemptAuthentication(HttpServletRequest request,

@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
 public class BeginControllerTest extends BaseProjectApplicationTest {
+
   @Test
   public void hi_success() throws Exception{
     // When

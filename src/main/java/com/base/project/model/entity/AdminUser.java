@@ -43,4 +43,8 @@ public class AdminUser {
     return Objects.hash(id);
   }
 
+  @Override
+  public String toString(){
+    return String.format("AdminUser - {id : %s, username : %s, password : %s, role : %s}",id.toString(),username,password,role.name());
+  }
 }

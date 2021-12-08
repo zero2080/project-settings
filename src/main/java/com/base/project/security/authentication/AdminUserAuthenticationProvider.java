@@ -39,7 +39,6 @@ public class AdminUserAuthenticationProvider extends DaoAuthenticationProvider {
     }
   }
 
-
   @Autowired
   public void setUserDetailsService(AdminUserDetailsService userDetailsService) {
     super.setUserDetailsService(userDetailsService);
