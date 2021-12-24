@@ -445,50 +445,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
+<ul class="sectlevel0">
+<li><a href="#Resources">관리자</a>
 <ul class="sectlevel1">
-<li><a href="#Resources">1. REST API Resources</a>
-<ul class="sectlevel4">
-<li><a href="#_api_resources">API Resources</a></li>
-</ul>
-</li>
-<li><a href="#_하이">2. 하이~</a>
+<li><a href="#_administrator">1. Administrator</a>
 <ul class="sectlevel2">
-<li><a href="#_positive_case">2.1. Positive Case</a>
+<li><a href="#_authentication">1.1. Authentication</a>
 <ul class="sectlevel3">
-<li><a href="#_positive_case_http_request">2.1.1. HTTP request</a></li>
-<li><a href="#_positive_case_http_response">2.1.2. HTTP response</a></li>
-<li><a href="#_positive_case_response_fields">2.1.3. Response fields</a>
-<ul class="sectlevel4">
-<li><a href="#_response_body_fields">Response Body Fields</a></li>
+<li><a href="#_관리자_로그인">1.1.1. 관리자 로그인</a></li>
+<li><a href="#_비밀번호_변경">1.1.2. 비밀번호 변경</a></li>
 </ul>
 </li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#_안녕">3. 안녕~</a>
-<ul class="sectlevel2">
-<li><a href="#_positive_case_2">3.1. Positive Case</a>
-<ul class="sectlevel3">
-<li><a href="#_positive_case_2_http_request">3.1.1. HTTP request</a></li>
-<li><a href="#_positive_case_2_path_parameters">3.1.2. Path parameters</a>
-<ul class="sectlevel4">
-<li><a href="#_endpoint">Endpoint</a></li>
-<li><a href="#_path_parameters">Path Parameters</a></li>
-</ul>
-</li>
-<li><a href="#_positive_case_2_http_response">3.1.3. HTTP response</a></li>
-<li><a href="#_positive_case_2_response_fields">3.1.4. Response fields</a>
-<ul class="sectlevel4">
-<li><a href="#_response_body_fields">Response Body Fields</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#_negative_case">3.2. Negative Case</a>
-<ul class="sectlevel3">
-<li><a href="#_negative_case_http_request">3.2.1. HTTP request</a></li>
-<li><a href="#_negative_case_http_response">3.2.2. HTTP response</a></li>
 </ul>
 </li>
 </ul>
@@ -497,48 +464,58 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div id="content">
+<h1 id="Resources" class="sect0"><a class="link" href="#Resources">관리자</a></h1>
 <div class="sect1">
-<h2 id="Resources">1. REST API Resources</h2>
-<div class="sectionbody">
-<div class="sect4">
-<h5 id="_api_resources">API Resources</h5>
-
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_하이">2. 하이~</h2>
+<h2 id="_administrator"><a class="link" href="#_administrator">1. Administrator</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_positive_case">2.1. Positive Case</h3>
+<h3 id="_authentication"><a class="link" href="#_authentication">1.1. Authentication</a></h3>
 <div class="sect3">
-<h4 id="_positive_case_http_request">2.1.1. HTTP request</h4>
+<h4 id="_관리자_로그인"><a class="link" href="#_관리자_로그인">1.1.1. 관리자 로그인</a></h4>
+<div class="sect4">
+<h5 id="_관리자_로그인_http_request"><a class="link" href="#_관리자_로그인_http_request">HTTP request</a></h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /hi HTTP/1.1
-Accept: application/json
-Host: localhost:8080</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_positive_case_http_response">2.1.2. HTTP response</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /admin/authenticate HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 27
+Accept: application/json
+Content-Length: 50
+Host: localhost:8080
 
 {
-  "message" : "hello"
+  "password" : "admin",
+  "username" : "admin"
 }</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_positive_case_response_fields">2.1.3. Response fields</h4>
 <div class="sect4">
-<h5 id="_response_body_fields">Response Body Fields</h5>
+<h5 id="_관리자_로그인_http_response"><a class="link" href="#_관리자_로그인_http_response">HTTP response</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 294
+
+{
+  "accessToken" : "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJST0xFIjoiUk9MRV9WSVNJVE9SIiwic3ViIjoiMDAwMDAwMDEtYTAwMC1iMDAwLWMwMDAtZDAwMDAwMDAwMDAwIiwiZXhwIjoxNjQwMzg0MjkwLCJ1c2VybmFtZSI6ImFkbWluIn0.bRSXD14q3vFmeEN0sLMZdM_wO_T29rk1BBCCT1qbOfF9QOIeKxPG486XfbVn4Ps5JdxBBcsXAa83rGidhHjkLA"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_관리자_로그인_response_fields"><a class="link" href="#_관리자_로그인_response_fields">Response fields</a></h5>
+<div class="sect4">
+<h5 id="_response_body_fields"><a class="link" href="#_response_body_fields">Response Body Fields</a></h5>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -556,128 +533,50 @@ Content-Length: 27
 <td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>accessToken</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">메세지</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JWT</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_안녕">3. 안녕~</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_positive_case_2">3.1. Positive Case</h3>
 <div class="sect3">
-<h4 id="_positive_case_2_http_request">3.1.1. HTTP request</h4>
+<h4 id="_비밀번호_변경"><a class="link" href="#_비밀번호_변경">1.1.2. 비밀번호 변경</a></h4>
+<div class="sect4">
+<h5 id="_비밀번호_변경_http_request"><a class="link" href="#_비밀번호_변경_http_request">HTTP request</a></h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /hello/developer HTTP/1.1
-Accept: application/json
-Host: localhost:8080</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_positive_case_2_path_parameters">3.1.2. Path parameters</h4>
-<div class="sect4">
-<h5 id="_endpoint">Endpoint</h5>
-<div class="paragraph">
-<p>/hello/{id}</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_path_parameters">Path Parameters</h5>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Parameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Format</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">예제 값</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_positive_case_2_http_response">3.1.3. HTTP response</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">PUT /admin/profile HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 24
+Accept: application/json
+Content-Length: 47
+Host: localhost:8080
 
 {
-  "message" : "hi"
+  "after" : "changed",
+  "before" : "admin"
 }</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_positive_case_2_response_fields">3.1.4. Response fields</h4>
 <div class="sect4">
-<h5 id="_response_body_fields">Response Body Fields</h5>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Path</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requires</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Format</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">메세지</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_negative_case">3.2. Negative Case</h3>
-<div class="sect3">
-<h4 id="_negative_case_http_request">3.2.1. HTTP request</h4>
+<h5 id="_비밀번호_변경_http_response"><a class="link" href="#_비밀번호_변경_http_response">HTTP response</a></h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /hello/server HTTP/1.1
-Accept: application/json
-Host: localhost:8080</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_negative_case_http_response">3.2.2. HTTP response</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 400 Bad Request</code></pre>
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY</code></pre>
 </div>
 </div>
 </div>
@@ -686,10 +585,11 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 </div>
+</div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2021-11-17 15:47:53 +0900
+Last updated 2021-12-24 16:19:24 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

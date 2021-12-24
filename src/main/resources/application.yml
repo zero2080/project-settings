@@ -1,20 +1,21 @@
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
 project:
-  nema: project
+  nema: hana-package
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-
+  profiles:
+    active: local
   jpa:
     open-in-view: true
-    show-sql: true
-    database-platform: org.hibernate.dialect.H2Dialect
-    generate-ddl: true
     hibernate:
-      ddl-auto: create-drop
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:~/project
-    username: sa
-    password:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        globally_quoted_identifiers: true
+jwt:
+  secret: hn-package
+  validity: 50000

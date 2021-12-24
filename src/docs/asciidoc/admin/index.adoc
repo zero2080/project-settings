@@ -1,0 +1,9 @@
+:api-id: {division}/profile
+
+
+== Administrator
+
+=== Authentication
+
+include::profile/login.adoc[]
+include::profile/change-password.adoc[]

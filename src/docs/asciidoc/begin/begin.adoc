@@ -1,7 +1,0 @@
-:api-id: {division}/hello-docs
-
-===== API Resources
-
-include::hi/hi.adoc[]
-
-include::hello/hello.adoc[]

@@ -1,0 +1,6 @@
+:api-name: 관리자 로그인
+:api-id: /admin/profile/login
+
+==== {api-name}
+
+operation::{api-id}/[snippets='http-request,http-response,response-fields']
