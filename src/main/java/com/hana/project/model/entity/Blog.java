@@ -1,6 +1,5 @@
 package com.hana.project.model.entity;
 
-import com.hana.project.model.dto.request.NoticeRequest;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.persistence.Column;
@@ -11,30 +10,33 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Notice {
+@ToString
+public class Blog {
+
   @Id
   @GeneratedValue
-  @Type(type="uuid-char")
+  @Type(type = "uuid-char")
   private UUID id;
+  private String thumb;
   private String title;
-  private String content;
+  private String type;
+
   @CreationTimestamp
+  @Column(name = "created_at", nullable = false, updatable = false)
   private LocalDateTime createdAt;
-  @UpdateTimestamp
+
+  @LastModifiedDate
   private LocalDateTime updatedAt;
 
-  public Notice(NoticeRequest req){
-    this.title=req.getTitle();
-    this.content=req.getContent();
-  }
 }
 

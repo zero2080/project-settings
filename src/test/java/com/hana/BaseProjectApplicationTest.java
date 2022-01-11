@@ -5,8 +5,6 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
@@ -32,32 +30,17 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles("local")
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 public class BaseProjectApplicationTest {
 
   protected MockMvc mockMvc;
 
-  //통합 테스트 환경 설정
-  @BeforeEach
-  public void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
-    this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-        .addFilter(new CharacterEncodingFilter("UTF-8",true))
-        .apply(documentationConfiguration(restDocumentation)
-            .snippets()
-            .withDefaults(HttpDocumentation.httpRequest(), HttpDocumentation.httpResponse())
-            .and()
-            .templateEngine(createTemplateEngine())
-        )
-        .apply(SecurityMockMvcConfigurers.springSecurity())
-        .alwaysDo(MockMvcResultHandlers.print())
-        .build();
-  }
-
   private static TemplateEngine createTemplateEngine() {
     return new MustacheTemplateEngine(
         new StandardTemplateResourceResolver(TemplateFormats.asciidoctor()),
-        Mustache.compiler().escapeHTML(false), Map.of("tableCellContent", new AsciidoctorTableCellContentLambda()));
+        Mustache.compiler().escapeHTML(false),
+        Map.of("tableCellContent", new AsciidoctorTableCellContentLambda()));
   }
 
   // 커스텀 템플릿
@@ -70,7 +53,24 @@ public class BaseProjectApplicationTest {
   }
 
   //path parameter 테이블 format컬럼 추가
-  protected static Attributes.Attribute format(String value){
+  protected static Attributes.Attribute format(String value) {
     return Attributes.key("format").value(value);
+  }
+
+  //통합 테스트 환경 설정
+  @BeforeEach
+  public void setUp(WebApplicationContext webApplicationContext,
+      RestDocumentationContextProvider restDocumentation) {
+    this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+        .addFilter(new CharacterEncodingFilter("UTF-8", true))
+        .apply(documentationConfiguration(restDocumentation)
+            .snippets()
+            .withDefaults(HttpDocumentation.httpRequest(), HttpDocumentation.httpResponse())
+            .and()
+            .templateEngine(createTemplateEngine())
+        )
+        .apply(SecurityMockMvcConfigurers.springSecurity())
+        .alwaysDo(MockMvcResultHandlers.print())
+        .build();
   }
 }
