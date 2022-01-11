@@ -1,9 +1,9 @@
 package com.hana.project.controller;
 
-import com.hana.project.model.dto.request.BlogRequest;
-import com.hana.project.model.dto.response.BlogResponse;
-import com.hana.project.model.entity.Blog;
-import com.hana.project.service.BlogService;
+import com.hana.project.model.dto.request.CollectionRequest;
+import com.hana.project.model.dto.response.CollectionResponse;
+import com.hana.project.model.entity.Collection;
+import com.hana.project.service.CollectionService;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -22,34 +22,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/blog", produces = MediaType.APPLICATION_JSON_VALUE)
-public class BlogController {
+public class CollectionController {
 
-  private final BlogService service;
-
+  private final CollectionService service;
   private final ModelMapper mapper;
 
   @GetMapping
-  public List<BlogResponse> getNotice() {
-    return service.get()
+  public List<CollectionResponse> getList() {
+    return service.getList()
         .stream().map(page ->
-            mapper.map(page, BlogResponse.class)
+            mapper.map(page, CollectionResponse.class)
         ).collect(Collectors.toList());
   }
 
   @GetMapping("/{id}")
-  public BlogResponse getNotice(@PathVariable UUID id) throws NotFoundException {
-    return mapper.map(service.get(id), BlogResponse.class);
+  public CollectionResponse getOne(@PathVariable UUID id) throws NotFoundException {
+    return mapper.map(service.getOne(id), CollectionResponse.class);
   }
 
   @PostMapping
-  public void writeNotice(@ModelAttribute BlogRequest request) {
-    service.write(request);
+  public void writeNotice(@ModelAttribute CollectionRequest request) {
+    service.write(request.getFile(), mapper.map(request, Collection.class));
   }
 
   @DeleteMapping("/{id}")
   public void delete(@PathVariable UUID id) {
-    Blog blog = new Blog();
-    blog.setId(id);
-    service.delete(blog);
+    Collection collection = new Collection();
+    collection.setId(id);
+    service.delete(collection);
   }
 }

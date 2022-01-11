@@ -19,3 +19,16 @@ spring:
 jwt:
   secret: hn-package
   validity: 50000
+
+cloud:
+  aws:
+    credentials:
+      accessKey: ${AWS_ACCESS_ID}
+      secretKey: ${AWS_SECRET_KEY}
+    s3:
+      bucket: hana-package.syopingbaeg.com
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+

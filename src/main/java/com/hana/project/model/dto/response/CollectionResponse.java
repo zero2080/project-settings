@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BlogResponse {
+public class CollectionResponse {
 
   private UUID id;
   private String thumb;

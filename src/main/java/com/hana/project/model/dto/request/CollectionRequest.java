@@ -1,14 +1,14 @@
 package com.hana.project.model.dto.request;
 
-import com.hana.project.model.entity.Blog;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
-public class BlogRequest {
+public class CollectionRequest {
 
   private MultipartFile file;
-  private Blog blog;
+  private String title;
+  private String type;
 }

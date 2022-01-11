@@ -21,13 +21,14 @@ import org.springframework.data.annotation.LastModifiedDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Blog {
+public class Collection {
 
   @Id
   @GeneratedValue
   @Type(type = "uuid-char")
   private UUID id;
-  private String thumb;
+  @Type(type = "uuid-char")
+  private UUID thumb;
   private String title;
   private String type;
 
@@ -37,6 +38,13 @@ public class Blog {
 
   @LastModifiedDate
   private LocalDateTime updatedAt;
+
+  public String getThumbPath() {
+    if (getThumb() == null) {
+      return null;
+    }
+    return String.join("/", "collection", getId().toString(), thumb.toString());
+  }
 
 }
 

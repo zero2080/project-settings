@@ -13,7 +13,7 @@ values ('00000001-a000-b000-c000-d00000000000',
         'admin',
         '$2a$10$NtJP.RGNuWGk3wCUAdTmJOMqBm/CxjiHikJGPqDSlMQ7lRJ9K93ce');
 
-create table blog
+create table collection
 (
     id         varchar(36)  not null,
     thumb      varchar(255) not null,
