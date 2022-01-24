@@ -29,6 +29,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
+
   protected final AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource = new WebAuthenticationDetailsSource();
 
   private final JwtProvider jwtProvider;
@@ -45,6 +46,7 @@ public class JwtFilter extends OncePerRequestFilter {
         decodedJWT = jwtProvider.parseToken(jwt);
       } catch (TokenExpiredException e) {
         handleResponse(response, AuthErrorCode.TOKEN_EXPIRED);
+        e.printStackTrace();
         return;
       } catch (JWTVerificationException e) {
         handleResponse(response, AuthErrorCode.INVALID_TOKEN);

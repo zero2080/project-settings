@@ -21,9 +21,11 @@ public class JwtProvider {
   }
 
   public String generateToken(AdminUser admin) {
-    return TOKEN_PREFIX + JWT.create().withSubject(admin.getId().toString())
+    return TOKEN_PREFIX + JWT.create()
+        .withSubject(admin.getId().toString())
         .withExpiresAt(Date.from(Instant.now().plusSeconds(PROPERTIES.getValidity())))
-        .withClaim("ROLE", admin.getRole().name()).withClaim("username", admin.getUsername())
+        .withClaim("role", admin.getRole().name())
+        .withClaim("username", admin.getUsername())
         .sign(ALGORITHM);
   }
 

@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:h2:tcp://localhost:9092/./h2db/hn_package</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="HN-AWS-live" uuid="e8d7ca81-5e9b-4c06-a0ce-becba288bf9e">
+      <driver-ref>mysql_aurora</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://server-db.c9vq7tfs4ivu.ap-northeast-2.rds.amazonaws.com:3306/hn-package</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

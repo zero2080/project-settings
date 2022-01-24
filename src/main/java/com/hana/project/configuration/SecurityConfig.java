@@ -1,10 +1,10 @@
 package com.hana.project.configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hana.project.configuration.security.AuthenticationHandler;
 import com.hana.project.configuration.security.authentication.AdminLoginFilter;
 import com.hana.project.configuration.security.authentication.AdminUserAuthenticationProvider;
 import com.hana.project.configuration.security.authentication.JsonLoginConfigurer;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hana.project.configuration.security.authentication.JwtProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -41,18 +41,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeRequests(req ->
             {
-              try {
-                req
-                    .antMatchers(HttpMethod.GET, "/docs/*").permitAll()
-                    .and().apply(new JsonLoginConfigurer<>(new AdminLoginFilter(objectMapper),
-                        "/admin/authenticate"))
-                    .successHandler(authenticationHandler)
-                    .failureHandler(authenticationHandler);
-              } catch (Exception e) {
-                e.printStackTrace();
-              }
+              req
+                  .antMatchers(HttpMethod.GET, "/docs/*").permitAll();
             }
-        );
+        ).apply(new JsonLoginConfigurer<>(new AdminLoginFilter(objectMapper),
+            "/admin/authenticate"))
+        .successHandler(authenticationHandler)
+        .failureHandler(authenticationHandler);
   }
 
   @Bean
@@ -67,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   @Override
-  public void configure(WebSecurity web ){
+  public void configure(WebSecurity web) {
     web.ignoring().antMatchers("/h2-console/**");
   }
 }

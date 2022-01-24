@@ -32,3 +32,17 @@ cloud:
     stack:
       auto: false
 
+ncloud:
+  access-key: AHL1xW1z45NwpMjGoG43
+  secret-key: 4zob2sBjJwPVqjbkXIIzTHK2cx4tIiuny7R88DCi
+  email:
+    address: 'zero2080@naver.com'
+    url: https://mail.apigw.ntruss.com
+    path: /api/v1/mails
+
+info:
+  app:
+    profile: ${spring.profiles.active}
+  environment:
+    os: ${os.name}
+    timezone: ${user.timezone}

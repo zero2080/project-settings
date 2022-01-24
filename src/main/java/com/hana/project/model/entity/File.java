@@ -6,12 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Transient;
-import lombok.AllArgsConstructor;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -19,20 +17,16 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-public class Collection {
+public class File {
 
   @Id
   @GeneratedValue
   @Type(type = "uuid-char")
   private UUID id;
-  private String title;
+  @ManyToOne
+  @JoinColumn(name = "collection_id")
+  private Collection collection;
   private String type;
-
-  @Transient
-  private String thumb;
 
   @CreationTimestamp
   @Column(name = "created_at", nullable = false, updatable = false)
@@ -42,5 +36,10 @@ public class Collection {
   private LocalDateTime updatedAt;
 
 
-}
+  public String getFullName() {
+    return String.join("/", "https://hana-package.syopingbaeg.com",
+        collection != null ? "collection" : "blog",
+        String.format("%s.%s", id, type));
+  }
 
+}

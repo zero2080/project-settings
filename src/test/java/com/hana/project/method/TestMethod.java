@@ -1,14 +1,18 @@
 package com.hana.project.method;
 
-import java.util.UUID;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Profile;
 
 
+@SpringBootTest
+@Profile("test")
 public class TestMethod {
 
   @Test
   public void test() {
-    System.out.println(UUID.randomUUID());
+    String name = "test";
+    System.out.println(name);
   }
 
 }
